@@ -1,0 +1,41 @@
+﻿@using System.Linq
+@model List<ProyectoG19.Models.Libro>
+
+@{
+    ViewData["Title"] = "Lista de Libros";
+}
+
+<h1>Lista de Libros</h1>
+
+<!-- Botón para redirigir a la vista Agregar -->
+<a href="@Url.Action("Agregar", "Libros")" class="btn btn-success mb-3">Agregar Libro</a>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table mt-3">
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var libro in Model)
+            {
+                <tr>
+                    <td>@libro.Titulo</td>
+                    <td>@libro.Autor</td>
+                    <td>
+                        <a href="@Url.Action("Modificar", "Libros", new { id = libro.Id })" class="btn btn-warning">Modificar</a>
+                        <a href="@Url.Action("Eliminar", "Libros", new { id = libro.Id })" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar este libro?');">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No hay libros registrados.</p>
+}
